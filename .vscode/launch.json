@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "E2E: Attach to Node",
+      "port": 7001,
+      "address": "localhost",
+      "localRoot": "${workspaceFolder}",
+      "sourceMapPathOverrides": {
+        "/e2e/*": "${workspaceRoot}/*"
+      },
+      "remoteRoot": "/e2e/"
+    }
+  ]
+}

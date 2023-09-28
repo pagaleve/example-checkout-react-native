@@ -1,0 +1,15 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.rulers": [
+    120
+  ],
+  "eslint.lintTask.enable": true,
+  "eslint.validate": [
+    "typescript",
+    "javascript"
+  ],
+  "javascript.suggestionActions.enabled": false, // https://stackoverflow.com/questions/49582984/how-do-i-disable-js-file-is-a-commonjs-module-it-may-be-converted-to-an-es6
+  "typescript.suggestionActions.enabled": false,
+}
