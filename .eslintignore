@@ -1,0 +1,10 @@
+**/*.scss
+**/*.css
+**/*.html
+coverage
+.vscode
+node_modules
+dist
+jest.config.js
+.eslintrc.js
+metro.config.js
