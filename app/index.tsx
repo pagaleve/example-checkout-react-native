@@ -43,7 +43,7 @@ export default function CartScreen() {
         // approve_url: 'example://success', Use o schema configurado no seu aplicativo.
         cancel_url: 'exp://127.0.0.1:8081/--/cancel', // Deep link que será chamado ao dar falha/cancelar o checkout.
         is_pix_upfront: false,
-        metadata: {}, // objeto chave/valor, os valores passados podem
+        metadata: {}, // objeto chave/valor, os valores passados podem ser recuperados por meio de API após a finalização do checkout
         order: {
           amount: 20000,
           description: 'order description',
