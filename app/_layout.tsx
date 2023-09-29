@@ -10,10 +10,6 @@ export {
   ErrorBoundary,
 } from 'expo-router'
 
-export const unstable_settings = {
-  initialRouteName: '/',
-}
-
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
 
@@ -47,8 +43,8 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
+        <Stack.Screen name='index' options={{title: 'CartScreen'}} />
         <Stack.Screen name='checkout' />
-        <Stack.Screen name='(cart)' options={{headerShown: false}} />
       </Stack>
     </ThemeProvider>
   )

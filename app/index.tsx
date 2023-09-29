@@ -2,9 +2,9 @@ import {router} from 'expo-router'
 import {useCallback, useEffect, useState} from 'react'
 import {StyleSheet} from 'react-native'
 
-import {Button} from '../../components/Button'
-import {Text, View} from '../../components/Themed'
-import {AuthResponse, CheckoutResponse} from '../type'
+import {Button} from '../components/Button'
+import {Text, View} from '../components/Themed'
+import {AuthResponse, CheckoutResponse} from './type'
 
 const MERCHANT_LOGIN = process.env.EXPO_PUBLIC_MERCHANT_LOGIN
 const MERCHANT_PASSWORD = process.env.EXPO_PUBLIC_MERCHANT_PASSWORD
