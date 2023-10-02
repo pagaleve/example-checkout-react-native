@@ -9,6 +9,7 @@ export default function CheckoutScreen() {
   return (
     <WebView
       allowsBackForwardNavigationGestures
+      incognito
       startInLoadingState
       originWhitelist={['https://*']}
       source={{

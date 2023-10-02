@@ -1,17 +1,26 @@
 import {ActivityIndicator, Pressable, PressableProps, StyleSheet, Text} from 'react-native'
 
 export type ButtonProps = {
-  loading?: boolean
+  backgroundColor?: string
+  color?: string
   flex?: number
+  loading?: boolean
 } & PressableProps
 
-export const Button = ({children, loading, flex, ...props}: ButtonProps) => {
+export const Button = ({
+  children,
+  loading,
+  flex,
+  backgroundColor = 'black',
+  color = 'white',
+  ...props
+}: ButtonProps) => {
   return (
-    <Pressable style={[styles.button, {flex}]} {...props}>
+    <Pressable style={[styles.button, {flex, backgroundColor}]} {...props}>
       {loading ? (
         <ActivityIndicator />
       ) : typeof children === 'string' ? (
-        <Text style={styles.text}>{children}</Text>
+        <Text style={[styles.text, {color}]}>{children}</Text>
       ) : (
         children
       )}
@@ -30,5 +39,6 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     textAlign: 'center',
+    fontWeight: 'bold',
   },
 })

@@ -43,8 +43,10 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name='index' options={{title: 'CartScreen'}} />
-        <Stack.Screen name='checkout' />
+        <Stack.Screen name='index' options={{title: 'Example'}} />
+        <Stack.Screen name='checkout' options={{title: 'Checkout'}} />
+        <Stack.Screen name='success' options={{title: 'Success Payment'}} />
+        <Stack.Screen name='cancel' options={{title: 'Payment Failed'}} />
       </Stack>
     </ThemeProvider>
   )
