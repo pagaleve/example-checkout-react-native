@@ -32,7 +32,7 @@ Simulation environment for creating a fake store and payment simulation
 
 ## Checkout Success
 
-<img width="600px" src="https://github.com/pagaleve/example-checkout-react-native/blob/main/docs/checkout_success.gif" />
+<img width="750px" src="https://github.com/pagaleve/example-checkout-react-native/blob/main/docs/checkout_success.gif" />
 
 ## Checkout Failed
 
