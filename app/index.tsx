@@ -1,6 +1,9 @@
+import {yupResolver} from '@hookform/resolvers/yup'
 import {router} from 'expo-router'
-import {useCallback, useEffect, useState} from 'react'
-import {StyleSheet} from 'react-native'
+import {useCallback, useState} from 'react'
+import {Controller, useForm} from 'react-hook-form'
+import {Alert, StyleSheet, TextInput} from 'react-native'
+import * as yup from 'yup'
 
 import {Button} from '../components/Button'
 import {Text, View} from '../components/Themed'
@@ -10,28 +13,45 @@ const MERCHANT_LOGIN = process.env.EXPO_PUBLIC_MERCHANT_LOGIN
 const MERCHANT_PASSWORD = process.env.EXPO_PUBLIC_MERCHANT_PASSWORD
 const API_URL = process.env.EXPO_PUBLIC_API_URL
 
+const schema = yup.object().shape({
+  email: yup.string().email().required(),
+  password: yup.string().min(6).required(),
+})
+
 export default function CartScreen() {
   const [loggedIn, setLoggedIn] = useState(false)
   const [token, setToken] = useState<string>()
   const [loading, setLoading] = useState(false)
 
-  const onAuth = useCallback(async () => {
-    // Referencia completa: https://docs.pagaleve.com.br/reference/authenticationcontroller_doauthentication
-    const authResponse = await fetch(`${API_URL}/v1/authentication`, {
-      body: JSON.stringify({
-        password: MERCHANT_PASSWORD,
-        username: MERCHANT_LOGIN,
-      }),
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-    })
+  const onSubmit = useCallback(async data => {
+    try {
+      setLoading(true)
+      // Referencia completa: https://docs.pagaleve.com.br/reference/authenticationcontroller_doauthentication
+      const authResponse = await fetch(`${API_URL}/v1/authentication`, {
+        body: JSON.stringify({
+          password: data.password,
+          username: data.email,
+        }),
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+      })
 
-    const {token: _token} = (await authResponse.json()) as AuthResponse
+      const {token: _token} = (await authResponse.json()) as AuthResponse
 
-    setLoggedIn(true)
-    setToken(_token)
+      setLoggedIn(true)
+      setToken(_token)
+    } catch (e) {
+      Alert.alert('Erro', 'Não foi possível realizar o login')
+    } finally {
+      setLoading(false)
+    }
+  }, [])
+
+  const onLogout = useCallback(async () => {
+    setToken(undefined)
+    setLoggedIn(false)
   }, [])
 
   const onCreateCheckout = useCallback(async () => {
@@ -142,17 +162,84 @@ export default function CartScreen() {
     })
   }, [token])
 
-  useEffect(() => {
-    if (!loggedIn) onAuth()
-  }, [loggedIn, onAuth])
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm({
+    defaultValues: {
+      email: MERCHANT_LOGIN ?? '',
+      password: MERCHANT_PASSWORD ?? '',
+    },
+    resolver: yupResolver(schema),
+  })
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{loggedIn ? `Logged as ${MERCHANT_LOGIN}` : 'Not Logged'}</Text>
+      <Text style={styles.title}>{loggedIn ? `Logged as ${MERCHANT_LOGIN}` : 'Merchant Not Logged'}</Text>
       <View darkColor='rgba(255,255,255,0.1)' lightColor='#eee' style={styles.separator} />
-      <Button loading={loading} onPress={async () => await onCreateCheckout()}>
-        Create Checkout
-      </Button>
+
+      {!loggedIn ? (
+        <View style={styles.form}>
+          <Controller
+            control={control}
+            defaultValue=''
+            name='email'
+            render={({field: {onChange, onBlur, value}}) => (
+              <TextInput
+                onBlur={onBlur}
+                onChangeText={onChange}
+                placeholder='Email'
+                style={[styles.input, {borderColor: errors.email ? 'red' : 'gray'}]}
+                value={value}
+              />
+            )}
+          />
+          {errors.email && <Text style={styles.errorText}>{errors.email.message}</Text>}
+
+          <Controller
+            control={control}
+            defaultValue=''
+            name='password'
+            render={({field: {onChange, onBlur, value}}) => (
+              <TextInput
+                secureTextEntry
+                onBlur={onBlur}
+                onChangeText={onChange}
+                placeholder='Password'
+                style={[styles.input, {borderColor: errors.password ? 'red' : 'gray'}]}
+                value={value}
+              />
+            )}
+          />
+          {errors.password && <Text style={styles.errorText}>{errors.password.message}</Text>}
+
+          <Button
+            backgroundColor='#12F2AA'
+            color='black'
+            loading={loading}
+            onPress={handleSubmit(onSubmit)}
+            testID='login'
+          >
+            Login
+          </Button>
+        </View>
+      ) : (
+        <View style={styles.row}>
+          <Button
+            backgroundColor='#12F2AA'
+            color='black'
+            loading={loading}
+            onPress={() => onCreateCheckout()}
+            testID='create_checkout'
+          >
+            Create Checkout
+          </Button>
+          <Button backgroundColor='#FE35F1' color='white' onPress={() => onLogout()} testID='create_checkout'>
+            Logout
+          </Button>
+        </View>
+      )}
     </View>
   )
 }
@@ -161,7 +248,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 40,
   },
   title: {
     fontSize: 20,
@@ -171,5 +258,26 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: '80%',
+  },
+  row: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  form: {
+    width: '90%',
+    margin: 10,
+  },
+  input: {
+    backgroundColor: 'white',
+    borderRadius: 5,
+    marginBottom: 10,
+    padding: 10,
+    borderWidth: 1,
+
+    borderColor: 'gray',
+  },
+  errorText: {
+    color: 'red',
+    marginBottom: 8,
   },
 })

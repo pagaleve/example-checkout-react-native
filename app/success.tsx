@@ -10,13 +10,13 @@ export type CheckoutScreenParams = {checkoutUrl: string}
 export default function SuccessScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sucesso!</Text>
+      <Text style={styles.title}>Success!</Text>
       <View style={styles.iconView}>
-        <FontAwesome color='white' name='check-circle' size={248} />
+        <FontAwesome color='#212B36' name='check-circle' size={248} />
       </View>
       <View style={{flexDirection: 'row', backgroundColor: 'transparent'}}>
-        <Button flex={1} onPress={() => router.replace('/')}>
-          Tela inicial
+        <Button backgroundColor='#FE35F1' flex={1} onPress={() => router.replace('/')}>
+          Back to Home
         </Button>
       </View>
     </View>
@@ -29,12 +29,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 64,
-    backgroundColor: '#089624',
+    backgroundColor: '#12F2AA',
   },
   title: {
     fontSize: 48,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#212B36',
     marginBottom: 8,
   },
   iconView: {
