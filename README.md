@@ -20,7 +20,7 @@ This is an example project on how to integrate Pagaleve checkout into an expo pr
 
 Simulation environment for creating a fake store and payment simulation
 
-<a href="https://sandbox-checkout.pagaleve.io/simulate?bypass=1&individualId=98765432100"> Click here to simulate a successful payment </a>
+<a href="https://sandbox-checkout.pagaleve.io/simulate?bypass=1&individualId=98765432100" target="_blank"> Click here to simulate a successful payment </a>
 
 ## Folders
 
@@ -32,11 +32,11 @@ Simulation environment for creating a fake store and payment simulation
 
 ## Checkout Success
 
-<img width="220px" src="https://github.com/pagaleve/example-checkout-react-native/blob/main/docs/checkout_success.gif" />
+<img width="600px" src="https://github.com/pagaleve/example-checkout-react-native/blob/main/docs/checkout_success.gif" />
 
 ## Checkout Failed
 
-<img width="220px" src="https://github.com/pagaleve/example-checkout-react-native/blob/main/docs/checkout_failed.gif" />
+<img width="400px" src="https://github.com/pagaleve/example-checkout-react-native/blob/main/docs/checkout_failed.gif" />
 
 ## Reporting Bugs & Feedback
 
