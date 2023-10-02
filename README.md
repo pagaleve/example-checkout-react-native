@@ -16,6 +16,12 @@ This is an example project on how to integrate Pagaleve checkout into an expo pr
 3. Run `yarn` (or `npm install`)
 4. `yarn start`
 
+## Usage
+
+Simulation environment for creating a fake store and payment simulation
+
+<a href="https://sandbox-checkout.pagaleve.io/simulate?bypass=1&individualId=98765432100"> Click here to simulate a successful payment </a>
+
 ## Folders
 
 - `src`: Contains the source code of the project.
